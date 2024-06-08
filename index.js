@@ -11,7 +11,7 @@ const CLIENT_URL = ['https://omegle-clone-beta.vercel.app'];
 
 // Apply CORS middleware to the Express app
 app.use(cors({
-    origin: "*",
+    origin: CLIENT_URL,
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type'],
     credentials: true
@@ -19,7 +19,7 @@ app.use(cors({
 
 const io = new Server(server, {
     cors: {
-        origin: "*",
+        origin: CLIENT_URL,
         methods: ['GET', 'POST'],
         allowedHeaders: ['Content-Type'],
         credentials: true
