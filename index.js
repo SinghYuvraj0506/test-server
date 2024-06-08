@@ -16,13 +16,7 @@ app.use(cors({
     credentials: true
 }));
 
-const io = new Server(server, {
-    cors: {
-        origin: CLIENT_URL,
-        methods: ['GET', 'POST'],
-        credentials: true
-    }
-});
+const io = new Server(server);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
