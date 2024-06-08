@@ -8,8 +8,11 @@ require("dotenv").config()
 const app = express();
 const server = createServer(app);
 const io = new Server(server,{
-    cors:{
-         origin: process.env.CLIENT_URL
+    cors: {
+        origin: "https://omegle-clone-beta.vercel.app",
+        methods: ["GET", "POST"],
+        allowedHeaders: ["Content-Type"],
+        credentials: true
     }
 });
 
