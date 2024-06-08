@@ -2,7 +2,7 @@
 const express = require("express")
 const cors = require("cors")
 const { Server } = require('socket.io');
-const { createServer } = require('node:http');
+const { createServer } = require('http');
 require("dotenv").config()
 
 const app = express();
@@ -13,16 +13,12 @@ const CLIENT_URL = ['https://omegle-clone-beta.vercel.app'];
 app.use(cors({
     origin: CLIENT_URL,
     methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type'],
-    credentials: true
 }));
 
 const io = new Server(server, {
     cors: {
         origin: CLIENT_URL,
         methods: ['GET', 'POST'],
-        allowedHeaders: ['Content-Type'],
-        credentials: true
     }
 });
 
