@@ -13,12 +13,14 @@ const CLIENT_URL = ['https://omegle-clone-beta.vercel.app'];
 app.use(cors({
     origin: CLIENT_URL,
     methods: ['GET', 'POST'],
+    credentials: true
 }));
 
 const io = new Server(server, {
     cors: {
         origin: CLIENT_URL,
         methods: ['GET', 'POST'],
+        credentials: true
     }
 });
 
