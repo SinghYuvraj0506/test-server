@@ -7,18 +7,24 @@ require("dotenv").config()
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server,{
+const CLIENT_URL = process.env.CLIENT_URL || 'https://omegle-clone-beta.vercel.app';
+
+// Apply CORS middleware to the Express app
+app.use(cors({
+    origin: CLIENT_URL,
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type'],
+    credentials: true
+}));
+
+const io = new Server(server, {
     cors: {
-        origin: "https://omegle-clone-beta.vercel.app",
-        methods: ["GET", "POST"],
-        allowedHeaders: ["Content-Type"],
+        origin: CLIENT_URL,
+        methods: ['GET', 'POST'],
+        allowedHeaders: ['Content-Type'],
         credentials: true
     }
 });
-
-app.use(cors({
-    origin:"*"
-}))
 
 app.use(express.json())
 app.use(express.urlencoded())
