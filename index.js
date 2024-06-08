@@ -1,12 +1,10 @@
 const express = require("express");
 const cors = require("cors");
 const { Server } = require('socket.io');
-const { createServer } = require('http');
 const path = require('path');
 require("dotenv").config();
 
 const app = express();
-const server = createServer(app);
 const CLIENT_URL = ['https://omegle-clone-beta.vercel.app'];
 
 // Apply CORS middleware to the Express app
@@ -15,8 +13,6 @@ app.use(cors({
     methods: ['GET', 'POST'],
     credentials: true
 }));
-
-const io = new Server(server);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -28,6 +24,15 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
+
+const server = app.listen(5000, () => {
+    console.log('server running at http://localhost:5000');
+});
+
+const io = new Server(server,{
+    allowEIO3:true
+});
+
 
 let usersMap = [];
 
@@ -70,6 +75,3 @@ io.on('connection', (socket) => {
     });
 });
 
-server.listen(5000, () => {
-    console.log('server running at http://localhost:5000');
-});
