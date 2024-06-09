@@ -18,16 +18,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static files from the Vite build directory
-app.use(express.static(path.join(__dirname, 'dist')));
+// app.use(express.static(path.join(__dirname, 'dist')));
 
-// Serve the Vite build for all other routes
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
+// // Serve the Vite build for all other routes
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+// });
 
-// app.get("/",(req,res)=>{
-//     res.send("Hello omegle")
-// })
+app.get("/",(req,res)=>{
+    res.send("Hello omegle")
+})
 
 const server = app.listen(port, () => {
     console.log('server running at http://localhost:5000');
