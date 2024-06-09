@@ -1,15 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 const { Server } = require('socket.io');
-const path = require('path');
 require("dotenv").config();
 
 const app = express();
-const CLIENT_URL = ['https://omegle-clone-beta.vercel.app'];
 
 // Apply CORS middleware to the Express app
 app.use(cors({
-    origin: CLIENT_URL,
+    origin: process.env.CLIENT_URL,
     methods: ['GET', 'POST'],
     credentials: true
 }));
@@ -18,21 +16,28 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static files from the Vite build directory
-app.use(express.static(path.join(__dirname, 'dist')));
+// app.use(express.static(path.join(__dirname, 'dist')));
 
-// Serve the Vite build for all other routes
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
+// // Serve the Vite build for all other routes
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+// });
+
+app.get("/",(req,res)=>{
+    res.send("Hello omegle")
+})
 
 const server = app.listen(5000, () => {
     console.log('server running at http://localhost:5000');
 });
 
 const io = new Server(server,{
-    allowEIO3:true
+    cors:{
+        origin: process.env.CLIENT_URL,
+        methods: ['GET', 'POST'],
+        credentials: true
+    }
 });
-
 
 let usersMap = [];
 
