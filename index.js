@@ -3,6 +3,8 @@ const cors = require("cors");
 const { Server } = require('socket.io');
 require("dotenv").config();
 
+const port = process.env.PORT || 5000
+
 const app = express();
 
 // Apply CORS middleware to the Express app
@@ -27,7 +29,7 @@ app.get("/",(req,res)=>{
     res.send("Hello omegle")
 })
 
-const server = app.listen(5000, () => {
+const server = app.listen(port, () => {
     console.log('server running at http://localhost:5000');
 });
 
